@@ -2,6 +2,7 @@
 # [Intellij]
 # folder
 .idea
+.ipynb_checkpoints
 out
 target
 # file
