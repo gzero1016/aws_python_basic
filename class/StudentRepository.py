@@ -21,8 +21,15 @@ def main():
     from Student import Student
     sr = StudentRepository()
     sr.add(Student("김준일", 30))
+    sr.add(Student("김준이", 30))
+    sr.add(Student("김준삼", 30))
+    sr.add(Student("김준사", 30))
     print(sr.studentList)
 
-    print(sr.findStudentByName("김준일"))
+    print(sr.findStudentByName("김준사"))
 
-main()
+# 모듈이 main 일때만 main문을 실행한다.
+if __name__ == "__main__":
+    main()
+
+print("학생저장소 모듈)", __name__)

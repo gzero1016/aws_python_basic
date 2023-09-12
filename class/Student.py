@@ -20,6 +20,10 @@ def student():
 def main():
     # new 키워드가 필요없다.
     s1 = Student("김준일", 30)
-    print(s1)
+    print(s1.name)
 
-main()
+# 모듈이 main 일때만 main문을 실행한다.
+if __name__ == "__main__":
+    main()
+
+print("학생모듈)", __name__)

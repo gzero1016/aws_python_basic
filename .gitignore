@@ -1,9 +1,9 @@
 
-# [Intellij]
+### PyCharm ###
 # folder
 .idea
-.ipynb_checkpoints
 out
 target
+__pycache__
 # file
 *.iml
