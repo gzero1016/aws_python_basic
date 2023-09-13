@@ -1,3 +1,4 @@
+
 def main():
     from userManagement.view.MenuView import MenuView
     while(MenuView.index()):
