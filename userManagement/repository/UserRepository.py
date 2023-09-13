@@ -73,7 +73,7 @@ class UserRepository:
         try :
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor) # DictCursor로 사용하면 맵으로됨
-            sql = f"""
+            sql = """
             delete from user_tb
             where username = %s        
             """
@@ -85,14 +85,24 @@ class UserRepository:
             print(e)
             return 0
 
-    # data = {
-    #     "userId": [1, 2, 3],
-    #     "username": ["aaa", "bbb", "ccc"],
-    #     "password": ["1234", "1111", "2222"],
-    #     "name": ["aaa", "bbb", "ccc"],
-    #     "email": ["aaa@gmail.com", "bbb@gmail.com", "ccc@gmail.com"]
-    # }
-    #
-    # print(pd.Series(userList))  # Dict 하나만넣음
-    # df = pd.DataFrame(data)   # List 만듬
-    # print(df)
+    @staticmethod
+    def updateUser(user = None):
+        try:
+            connection = DataBaseConfig.getConnection()
+            cursor = connection.cursor(pymysql.cursors.DictCursor)
+            sql = """
+            update user_tb
+            set
+                password = %s,
+                name = %s,
+                email = %s
+            where
+                user_id = %s
+            """
+            updateCount = cursor.execute(sql,
+                         (user.get("password"), user.get("name"), user.get("email"), user.get("userId")))
+            connection.commit()
+            return updateCount
+        except Exception as e :
+            print(e)
+            return 0
