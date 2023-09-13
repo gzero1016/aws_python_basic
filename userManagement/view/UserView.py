@@ -65,8 +65,6 @@ class UserView:
                 user = response.body[index]
                 if bool(response.body):
                     print("\n정말로 삭제하시겠습니까?")
-                else:
-                    print("\n 존재하지 않는 userId 입니다.")
 
                 while True:
                     check = input("y/n 로 응답해주세요 >>> ")
