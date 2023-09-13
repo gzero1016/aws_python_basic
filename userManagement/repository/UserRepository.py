@@ -7,7 +7,7 @@ class UserRepository:
         try:
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor)
-            sql = f"""
+            sql = """
             insert into user_tb
             values(0, %s, %s, %s, %s)
             """
@@ -69,15 +69,18 @@ class UserRepository:
             return None
 
     @staticmethod
-    def deleteUser(username):
+    def deleteUser(userId):
+        print(userId)
         try :
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor) # DictCursor로 사용하면 맵으로됨
             sql = """
             delete from user_tb
-            where username = %s        
+            where 
+                user_id = %s
             """
-            deleteCount = cursor.execute(sql,(username))
+            print(userId)
+            deleteCount = cursor.execute(sql, userId)
             connection.commit()
             return deleteCount
         except Exception as e :

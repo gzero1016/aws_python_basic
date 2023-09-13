@@ -19,8 +19,8 @@ class UserController:
         return ResponseEntity(body = responseBody)
 
     @staticmethod
-    def deleteUser(username):
-        responseBody = bool(UserRepository.deleteUser(username))
+    def deleteUser(userId):
+        responseBody = bool(UserRepository.deleteUser(userId))
         return ResponseEntity(body = responseBody)
 
     @staticmethod

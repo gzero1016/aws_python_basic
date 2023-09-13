@@ -50,20 +50,38 @@ class UserView:
 
     @staticmethod
     def deleteRegister():
-        print("\n[사용자 삭제]")
-        username = input("삭제할 username >>> ")
+        while True:
+            print("\n[사용자 삭제]")
+            response = UserController.getUsersALl()
+            if not bool(response.body):
+                print("\n삭제할 사용자 정보가 없습니다.")
+                return
+            df = pd.DataFrame(response.body)
+            print(df)
 
-        response = UserController.deleteUser(username)
+            userId = input("\n삭제할 userId를 입력하세요 >>> ")
+            try :
+                index = df.index[df["userId"] == int(userId)].values[0]
+                user = response.body[index]
+                if bool(response.body):
+                    print("\n정말로 삭제하시겠습니까?")
+                else:
+                    print("\n 존재하지 않는 userId 입니다.")
 
-        if bool(response.body):
-            print("\n정말로 삭제하시겠습니까?")
-            check = input("Y/N 로 응답해주세요 >>> ")
-            if check == "Y" or "y" :
-                print("\n << 삭제 완료 >>")
-            elif check == "N" or "n" :
-                print("<< 취소 완료 >>")
-        else :
-            print("\n삭제 할 데이터가 없습니다.")
+                while True:
+                    check = input("y/n 로 응답해주세요 >>> ")
+
+                    if bool(check == "n") :
+                        print("\n << 취소 완료 >>")
+                        return False
+                    elif bool(check == "y") :
+                        UserController.deleteUser(user.get("userId"))
+                        print("<< 삭제 완료 >>")
+                        return False
+                    else:
+                        print("\n- y/n로만 입력해주세요 -")
+            except Exception:
+                    print("\n존재하지 않는 userId 입니다.")
 
     @staticmethod
     def updateUser():
@@ -145,7 +163,7 @@ class UserView:
                 newUser["email"] = email
 
             else:
-                print("선택하신 번호는 등록되지 않은 메뉴입니다.")
+                print("\n선택하신 번호는 등록되지 않은 메뉴입니다.")
 
         print()
         return False
