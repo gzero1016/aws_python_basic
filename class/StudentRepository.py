@@ -1,8 +1,8 @@
 class StudentRepository:
 
     def __init__(self):
-        # self.studentList = list()     위아래 동일한 리스트생성하는 법
         self.studentList = []
+        # self.studentList = list()
 
     def add(self, student):
         self.studentList.append(student)
@@ -15,21 +15,25 @@ class StudentRepository:
         return None
 
 def main():
-    # Student 파일로부터 Student를 가져와라
-    # from : 모듈파일
-    # import : 모듈 내부의 클래스, 함수, 변수
     from Student import Student
+    # from: 모듈파일 import: 모듈 내부의 클래스, 함수, 변수
     sr = StudentRepository()
     sr.add(Student("김준일", 30))
-    sr.add(Student("김준이", 30))
-    sr.add(Student("김준삼", 30))
-    sr.add(Student("김준사", 30))
+    sr.add(Student("김준이", 31))
+    sr.add(Student("김준삼", 32))
+    sr.add(Student("김준사", 33))
     print(sr.studentList)
 
-    print(sr.findStudentByName("김준사"))
+    print(sr.findStudentByName("김준일"))
 
-# 모듈이 main 일때만 main문을 실행한다.
 if __name__ == "__main__":
     main()
 
-print("학생저장소 모듈)", __name__)
+print("학생저장소 모듈", __name__)
+
+
+
+
+
+
+

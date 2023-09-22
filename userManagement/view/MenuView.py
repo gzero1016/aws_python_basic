@@ -1,4 +1,5 @@
 from userManagement.view.UserView import UserView
+
 class MenuView:
 
     @staticmethod
@@ -23,11 +24,9 @@ class MenuView:
         elif select == "4":
             UserView.updateUser()
         elif select == "5":
-            UserView.deleteRegister()
+            pass
         else:
             print("선택하신 번호는 등록되지 않은 메뉴입니다.")
 
         print()
         return True
-
-
