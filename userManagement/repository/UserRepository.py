@@ -1,6 +1,4 @@
-from userManagement.config.DataBaseConfig import DataBaseConfig
-import pymysql.cursors
-import pandas as pd
+from userManagement.config.DataBaseConfig import DataBaseConfig, pymysql
 
 class UserRepository:
 
@@ -13,16 +11,18 @@ class UserRepository:
             insert into user_tb
             values(0, %s, %s, %s, %s)
             """
+            # 알아서 %s 자리에 넣어줌
             insertCount = cursor.execute(sql, (user.username, user.password, user.name, user.email))
             connection.commit()
             return insertCount
-        except Exception as e:
+        except Exception as e :
+            print()
             print(e)
             return 0
 
     @staticmethod
     def getUsersAll():
-        try:
+        try :
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor)
             sql = """
@@ -38,38 +38,58 @@ class UserRepository:
             cursor.execute(sql)
             rs = cursor.fetchall()
             return rs
-
-        except Exception as e:
+        except Exception as e :
+            print()
             print(e)
             return None
 
     @staticmethod
-    def findUserByUsername(username=None):
-        try:
+    def findByusername(username):
+        try :
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor)
             sql = """
-            select
-                user_id as userId,
-                username,
-                password,
-                name,
-                email
-            from
-                user_tb
-            where
-                username = %s
-            """
-            cursor.execute(sql, username)
+                select
+                    user_id as userId,
+                    username,
+                    password,
+                    name,
+                    email
+                from
+                    user_tb
+                where
+                    username = %s
+                """
+            cursor.execute(sql,username)
             rs = cursor.fetchone()
             return rs
-
-        except Exception as e:
+        except Exception as e :
+            print()
             print(e)
             return None
 
     @staticmethod
-    def updateUser(user=None):
+    def deleteUser(userId):
+        print(userId)
+        try :
+            connection = DataBaseConfig.getConnection()
+            cursor = connection.cursor(pymysql.cursors.DictCursor) # DictCursor로 사용하면 맵으로됨
+            sql = """
+            delete from user_tb
+            where 
+                user_id = %s
+            """
+            print(userId)
+            deleteCount = cursor.execute(sql, userId)
+            connection.commit()
+            return deleteCount
+        except Exception as e :
+            print()
+            print(e)
+            return 0
+
+    @staticmethod
+    def updateUser(user = None):
         try:
             connection = DataBaseConfig.getConnection()
             cursor = connection.cursor(pymysql.cursors.DictCursor)
@@ -83,22 +103,9 @@ class UserRepository:
                 user_id = %s
             """
             updateCount = cursor.execute(sql,
-                        (user.get("password"), user.get("name"), user.get("email"), user.get("userId")))
+                         (user.get("password"), user.get("name"), user.get("email"), user.get("userId")))
             connection.commit()
             return updateCount
-        except Exception as e:
+        except Exception as e :
             print(e)
             return 0
-
-
-
-
-
-
-
-
-
-
-
-
-

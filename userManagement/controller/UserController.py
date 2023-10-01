@@ -6,25 +6,24 @@ class UserController:
     @staticmethod
     def registerUser(user = None):
         responseBody = bool(UserRepository.saveUser(user))
-        return ResponseEntity(body=responseBody)
+        return ResponseEntity(body = responseBody)
 
     @staticmethod
-    def getUsersAll():
+    def getUsersALl():
         responseBody = UserRepository.getUsersAll()
-        return ResponseEntity(body=responseBody)
+        return ResponseEntity(body = responseBody)
 
     @staticmethod
-    def getUser(username=None):
-        responseBody = UserRepository.findUserByUsername(username)
-        return ResponseEntity(body=responseBody)
+    def getUser(username):
+        responseBody = UserRepository.findByusername(username)
+        return ResponseEntity(body = responseBody)
 
     @staticmethod
-    def updateUser(user=None):
+    def deleteUser(userId):
+        responseBody = bool(UserRepository.deleteUser(userId))
+        return ResponseEntity(body = responseBody)
+
+    @staticmethod
+    def updateUser(user = None):
         responseBody = UserRepository.updateUser(user)
-        return ResponseEntity(body=responseBody)
-
-
-
-
-
-
+        return ResponseEntity(body = responseBody)
